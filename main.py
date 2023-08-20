@@ -1,6 +1,6 @@
 import pandas
 
-df = pandas.read_csv("hotels.csv")
+df = pandas.read_csv("hotels.csv", dtype={"id":str})
 
 class Hotel:
     def __init__(self, hotel_id):
@@ -8,7 +8,9 @@ class Hotel:
         pass
 
     def book(self):
-        pass
+        """Books a hotel by changing the available field in the database to no"""
+        df.loc[df["id"] == self.hotel_id, "available"] = "no"
+        df.to_csv("hotels.csv", index=False)
 
     def available(self):
         """Checks the database to see if the selected hotel is available"""
